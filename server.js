@@ -60,18 +60,15 @@ function filterByQuery(query, animalsArray) {
 
 
 // adding route to API animals & query
-// app.get('/api/animals/:id', (req, res) => {
-//     const result = findById(req.params.id, animals);
-//     res.json(result);
-// });
-
-app.get('/api/animals', (req, res) => {
-    let results = animals;
-    if (req.query) {
-        results = filterByQuery(req.query, results);
+app.get('/api/animals/:id', (req, res) => {
+    const result = findById(req.params.id, animals);
+    if (result) {
+        res.json(result);
+    } else {
+        res.send(404);
     }
-    res.json(results);
 });
+
 //server listens to request and adds exact destination
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
